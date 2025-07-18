@@ -117,6 +117,21 @@ export function CryptoPriceTable() {
     );
   }
 
+  if (!cryptoData || cryptoData.length === 0) {
+    return (
+      <Card className="glass-card">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <p className="text-muted-foreground">No cryptocurrency data available</p>
+              <p className="text-sm text-muted-foreground mt-2">Loading cryptocurrency data...</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="glass-card">
       <CardContent className="p-0">

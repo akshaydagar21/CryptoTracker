@@ -77,6 +77,7 @@ export function useCryptoData() {
       
       setCryptoData(formattedData);
       setUseRealData(true);
+      setLoading(false);
     } catch (error) {
       console.log('Using simulated data due to API limitation');
       setUseRealData(false);
