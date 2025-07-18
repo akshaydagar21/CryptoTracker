@@ -1,2 +1,0 @@
-# CryptoTracker
-My first project
