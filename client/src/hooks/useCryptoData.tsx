@@ -22,7 +22,7 @@ interface MarketData {
   active_cryptocurrencies: number;
 }
 
-// Simulated dynamic data with realistic fluctuations
+// Real-time crypto data with fallback to simulated data
 export function useCryptoData() {
   const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
   const [marketData, setMarketData] = useState<MarketData>({
@@ -32,6 +32,7 @@ export function useCryptoData() {
     active_cryptocurrencies: 2800
   });
   const [loading, setLoading] = useState(true);
+  const [useRealData, setUseRealData] = useState(true);
 
   // Generate realistic sparkline data
   const generateSparkline = (basePrice: number, volatility: number = 0.05) => {
@@ -48,8 +49,43 @@ export function useCryptoData() {
     return prices;
   };
 
-  // Initial data setup
-  useEffect(() => {
+  // Fetch real crypto data from CoinGecko API
+  const fetchRealCryptoData = async () => {
+    try {
+      const response = await fetch(
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=24h'
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch real data');
+      }
+      
+      const data = await response.json();
+      
+      const formattedData: CryptoData[] = data.map((coin: any) => ({
+        id: coin.id,
+        name: coin.name,
+        symbol: coin.symbol,
+        current_price: coin.current_price,
+        price_change_percentage_24h: coin.price_change_percentage_24h,
+        market_cap: coin.market_cap,
+        market_cap_rank: coin.market_cap_rank,
+        total_volume: coin.total_volume,
+        image: coin.image,
+        sparkline_in_7d: coin.sparkline_in_7d
+      }));
+      
+      setCryptoData(formattedData);
+      setUseRealData(true);
+    } catch (error) {
+      console.log('Using simulated data due to API limitation');
+      setUseRealData(false);
+      loadSimulatedData();
+    }
+  };
+
+  // Load simulated data as fallback
+  const loadSimulatedData = () => {
     const initialData: CryptoData[] = [
       {
         id: 'bitcoin',
@@ -151,6 +187,11 @@ export function useCryptoData() {
 
     setCryptoData(initialData);
     setLoading(false);
+  };
+
+  // Initial data setup
+  useEffect(() => {
+    fetchRealCryptoData();
   }, []);
 
   // Simulate real-time price updates
