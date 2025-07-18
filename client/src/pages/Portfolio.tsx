@@ -9,11 +9,13 @@ import { useCryptoData } from '@/hooks/useCryptoData';
 export default function Portfolio() {
   const { cryptoData } = useCryptoData();
   
-  // Mock portfolio data
+  // Simulated portfolio data with realistic holdings
   const portfolio = [
     { id: 'bitcoin', amount: 0.5, purchasePrice: 45000 },
     { id: 'ethereum', amount: 2.5, purchasePrice: 2800 },
     { id: 'solana', amount: 10, purchasePrice: 180 },
+    { id: 'cardano', amount: 500, purchasePrice: 0.85 },
+    { id: 'polkadot', amount: 25, purchasePrice: 12.50 },
   ];
 
   const portfolioValue = portfolio.reduce((total, holding) => {

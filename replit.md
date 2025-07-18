@@ -4,9 +4,13 @@
 
 This is a modern cryptocurrency dashboard application built with React and Express. The application provides real-time cryptocurrency tracking, market analytics, and portfolio management features. It uses a clean, modern design with a dark theme and glassmorphism effects.
 
+**Current Status**: Fully functional frontend-only application without database dependencies. All cryptocurrency data is fetched from CoinGecko API with fallback to simulated data for development.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Architecture preference: Frontend-only without database dependencies.
+Data preference: Real-time cryptocurrency data using external APIs.
 
 ## System Architecture
 
@@ -35,9 +39,9 @@ Preferred communication style: Simple, everyday language.
 - **Responsive Design**: Mobile-first approach with breakpoint-based layouts
 
 ### Backend Structure
-- **API Layer**: Express.js server with RESTful endpoints
-- **Storage Interface**: Abstracted storage interface supporting both memory and database storage
-- **Database Schema**: User management with extensible schema structure
+- **API Layer**: Minimal Express.js server serving static frontend files
+- **Data Sources**: Frontend-only data fetching using CoinGecko API
+- **No Database**: Application runs entirely in frontend with simulated data fallback
 - **Development Setup**: Hot reload with Vite integration
 
 ### Data Management
