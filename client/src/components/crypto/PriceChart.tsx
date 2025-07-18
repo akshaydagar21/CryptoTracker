@@ -122,7 +122,7 @@ export function PriceChart() {
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             {showVolume ? (
-              <AreaChart data={mockChartData}>
+              <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
@@ -173,7 +173,7 @@ export function PriceChart() {
                 />
               </AreaChart>
             ) : (
-              <LineChart data={mockChartData}>
+              <LineChart data={chartData}>
                 <XAxis 
                   dataKey="time" 
                   axisLine={false}
