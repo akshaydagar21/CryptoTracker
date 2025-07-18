@@ -1,30 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useCryptoData } from '@/hooks/useCryptoData';
 
 interface ChartData {
   time: string;
   price: number;
   volume: number;
 }
-
-const mockChartData: ChartData[] = [
-  { time: '00:00', price: 65000, volume: 1200000000 },
-  { time: '02:00', price: 65500, volume: 1100000000 },
-  { time: '04:00', price: 66000, volume: 1300000000 },
-  { time: '06:00', price: 65800, volume: 1250000000 },
-  { time: '08:00', price: 66200, volume: 1400000000 },
-  { time: '10:00', price: 67000, volume: 1600000000 },
-  { time: '12:00', price: 66800, volume: 1350000000 },
-  { time: '14:00', price: 67200, volume: 1550000000 },
-  { time: '16:00', price: 67100, volume: 1450000000 },
-  { time: '18:00', price: 67400, volume: 1700000000 },
-  { time: '20:00', price: 67542, volume: 1800000000 },
-];
 
 const timeRanges = [
   { label: '1H', value: '1h' },
@@ -35,11 +22,23 @@ const timeRanges = [
 ];
 
 export function PriceChart() {
+  const { cryptoData } = useCryptoData();
   const [selectedRange, setSelectedRange] = useState('1d');
   const [showVolume, setShowVolume] = useState(false);
+  const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
   
-  const currentPrice = mockChartData[mockChartData.length - 1].price;
-  const previousPrice = mockChartData[0].price;
+  // Get the selected cryptocurrency
+  const crypto = cryptoData.find(c => c.id === selectedCrypto) || cryptoData[0];
+  
+  // Generate chart data from sparkline data
+  const chartData: ChartData[] = crypto?.sparkline_in_7d?.price.map((price, index) => ({
+    time: `${index * 4}:00`,
+    price: price,
+    volume: Math.random() * 2000000000 + 1000000000 // Simulated volume data
+  })) || [];
+  
+  const currentPrice = chartData[chartData.length - 1]?.price || 0;
+  const previousPrice = chartData[0]?.price || 0;
   const priceChange = currentPrice - previousPrice;
   const priceChangePercent = (priceChange / previousPrice) * 100;
 
@@ -67,7 +66,9 @@ export function PriceChart() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-xl font-space-grotesk">Bitcoin Price Chart</CardTitle>
+            <CardTitle className="text-xl font-space-grotesk">
+              {crypto?.name || 'Bitcoin'} Price Chart
+            </CardTitle>
             <div className="flex items-center space-x-4 mt-2">
               <span className="text-2xl font-bold">${currentPrice.toLocaleString()}</span>
               <Badge

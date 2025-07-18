@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useLocation } from 'wouter';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -17,14 +18,16 @@ interface SidebarProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', icon: LayoutDashboard, href: '#', current: true },
-  { name: 'Watchlist', icon: Heart, href: '#', current: false },
-  { name: 'Portfolio', icon: PieChart, href: '#', current: false },
-  { name: 'Market', icon: TrendingUp, href: '#', current: false },
-  { name: 'Settings', icon: Settings, href: '#', current: false },
+  { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard', current: true },
+  { name: 'Watchlist', icon: Heart, href: '/watchlist', current: false },
+  { name: 'Portfolio', icon: PieChart, href: '/portfolio', current: false },
+  { name: 'Market', icon: TrendingUp, href: '/market', current: false },
+  { name: 'Settings', icon: Settings, href: '/settings', current: false },
 ];
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+  const [location, setLocation] = useLocation();
+
   return (
     <div className={cn(
       "relative h-screen bg-card/50 backdrop-blur-xl border-r border-border/50 transition-all duration-300 glass-card",
@@ -48,15 +51,18 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <nav className="p-4 space-y-2">
         {navigation.map((item) => {
           const Icon = item.icon;
+          const isActive = location === item.href;
+          
           return (
             <Button
               key={item.name}
-              variant={item.current ? "secondary" : "ghost"}
+              variant={isActive ? "secondary" : "ghost"}
               className={cn(
                 "w-full justify-start transition-all duration-200",
                 collapsed ? "px-2" : "px-4",
-                item.current && "bg-primary/10 text-primary border border-primary/20 glow-sm"
+                isActive && "bg-primary/10 text-primary border border-primary/20 glow-sm"
               )}
+              onClick={() => setLocation(item.href)}
             >
               <Icon className={cn("h-5 w-5", !collapsed && "mr-3")} />
               {!collapsed && <span>{item.name}</span>}
