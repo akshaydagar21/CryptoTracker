@@ -36,8 +36,12 @@ export function FeaturedCoins() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center text-white font-bold glow-sm">
-                  {coin.logo}
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center text-white font-bold glow-sm overflow-hidden">
+                  <img
+                    src={coin.logo}
+                    alt={`${coin.name} logo`}
+                    className="w-8 h-8"
+                  />
                 </div>
                 <div>
                   <CardTitle className="text-lg">{coin.name}</CardTitle>

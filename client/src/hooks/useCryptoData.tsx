@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getCryptoIcon } from '@/lib/crypto-icons';
 
 interface CryptoData {
   id: string;
@@ -71,7 +72,7 @@ export function useCryptoData() {
         market_cap: coin.market_cap,
         market_cap_rank: coin.market_cap_rank,
         total_volume: coin.total_volume,
-        image: coin.image,
+        image: getCryptoIcon(coin.symbol),
         sparkline_in_7d: coin.sparkline_in_7d
       }));
       
@@ -97,7 +98,7 @@ export function useCryptoData() {
         market_cap: 1330000000000,
         market_cap_rank: 1,
         total_volume: 28500000000,
-        image: '₿',
+        image: '/assets/crypto-icons/btc.svg',
         sparkline_in_7d: { price: generateSparkline(67542.30, 0.03) }
       },
       {
@@ -109,7 +110,7 @@ export function useCryptoData() {
         market_cap: 462000000000,
         market_cap_rank: 2,
         total_volume: 15200000000,
-        image: 'Ξ',
+        image: '/assets/crypto-icons/eth.svg',
         sparkline_in_7d: { price: generateSparkline(3842.15, 0.04) }
       },
       {
@@ -121,7 +122,7 @@ export function useCryptoData() {
         market_cap: 113000000000,
         market_cap_rank: 3,
         total_volume: 4800000000,
-        image: 'S',
+        image: '/assets/crypto-icons/sol.svg',
         sparkline_in_7d: { price: generateSparkline(238.91, 0.06) }
       },
       {
@@ -133,7 +134,7 @@ export function useCryptoData() {
         market_cap: 43000000000,
         market_cap_rank: 4,
         total_volume: 1200000000,
-        image: '₳',
+        image: '/assets/crypto-icons/ada.svg',
         sparkline_in_7d: { price: generateSparkline(1.23, 0.05) }
       },
       {
@@ -145,7 +146,7 @@ export function useCryptoData() {
         market_cap: 12000000000,
         market_cap_rank: 5,
         total_volume: 450000000,
-        image: '●',
+        image: '/assets/crypto-icons/dot.svg',
         sparkline_in_7d: { price: generateSparkline(8.45, 0.05) }
       },
       {
@@ -157,7 +158,7 @@ export function useCryptoData() {
         market_cap: 15500000000,
         market_cap_rank: 6,
         total_volume: 680000000,
-        image: '⚡',
+        image: '/assets/crypto-icons/link.svg',
         sparkline_in_7d: { price: generateSparkline(24.78, 0.05) }
       },
       {
@@ -169,7 +170,7 @@ export function useCryptoData() {
         market_cap: 18200000000,
         market_cap_rank: 7,
         total_volume: 890000000,
-        image: '🔺',
+        image: '/assets/crypto-icons/avax.svg',
         sparkline_in_7d: { price: generateSparkline(45.32, 0.05) }
       },
       {
@@ -181,7 +182,7 @@ export function useCryptoData() {
         market_cap: 8900000000,
         market_cap_rank: 8,
         total_volume: 320000000,
-        image: '🔷',
+        image: '/assets/crypto-icons/matic.svg',
         sparkline_in_7d: { price: generateSparkline(0.89, 0.06) }
       }
     ];

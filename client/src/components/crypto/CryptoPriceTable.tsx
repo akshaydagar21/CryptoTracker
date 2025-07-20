@@ -162,7 +162,11 @@ export function CryptoPriceTable() {
                   <td className="p-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center text-white font-bold text-sm glow-sm">
-                        {crypto.image}
+                        <img
+                          src={crypto.image}
+                          alt={`${crypto.name} logo`}
+                          className="w-6 h-6"
+                        />
                       </div>
                       <div>
                         <div className="font-semibold">{crypto.name}</div>

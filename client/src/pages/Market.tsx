@@ -62,8 +62,12 @@ export default function Market() {
                   {topGainers.map((crypto, index) => (
                     <div key={crypto.id} className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center text-white font-bold text-sm">
-                          {crypto.image}
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center overflow-hidden">
+                          <img
+                            src={`/crypto-icons/${crypto.symbol.toLowerCase()}.svg`}
+                            alt={`${crypto.name} logo`}
+                            className="w-6 h-6"
+                          />
                         </div>
                         <div>
                           <div className="font-semibold">{crypto.name}</div>
@@ -96,8 +100,12 @@ export default function Market() {
                   {topLosers.map((crypto, index) => (
                     <div key={crypto.id} className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center text-white font-bold text-sm">
-                          {crypto.image}
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-crypto-green to-crypto-blue flex items-center justify-center overflow-hidden">
+                          <img
+                            src={`/crypto-icons/${crypto.symbol.toLowerCase()}.svg`}
+                            alt={`${crypto.name} logo`}
+                            className="w-6 h-6"
+                          />
                         </div>
                         <div>
                           <div className="font-semibold">{crypto.name}</div>
